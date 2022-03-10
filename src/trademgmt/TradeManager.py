@@ -128,7 +128,7 @@ class TradeManager:
       # save updated data to json file
       TradeManager.saveAllTradesToFile()
       # sleep for 10 seconds and then continue
-      time.sleep(3)
+      time.sleep(10)
       logging.error('TradeManager: Main thread woke up..')
 
   @staticmethod
