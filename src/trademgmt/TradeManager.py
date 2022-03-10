@@ -68,7 +68,7 @@ class TradeManager:
 
     # Load all trades from json files to app memory
     TradeManager.loadAllTradesFromFile()
-    stopLoss = -25
+    stopLoss = -15
     dict = {}
     lastPriceDict = {}
     previoustotal = 0
@@ -96,10 +96,10 @@ class TradeManager:
         if total > previoustotal:
           previoustotal = total
         if total > 0 and total >= previoustotal:
-          stopLoss = -25 + total
+          stopLoss = -10 + total
         logging.error('total....'+str(total))
         logging.error('stopLoss....'+str(stopLoss))
-        if stopLoss > total or total > 30:
+        if stopLoss > total or total > 15:
           time.sleep(5)
           for tr in TradeManager.trades:
             logging.error('TradeManager: MTM Loss reached SL..')
