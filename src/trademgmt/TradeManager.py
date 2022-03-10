@@ -101,6 +101,7 @@ class TradeManager:
         logging.error('stopLoss----'+str(stopLoss))
         if stopLoss > total or total > 25:
           for tr in TradeManager.trades:
+            time.sleep(3)
             logging.error('TradeManager: MTM Loss reached SL..')
             if tr.tradeState == TradeState.ACTIVE and tr.direction == Direction.SHORT:
               tr.tradeState = TradeState.DISABLED
@@ -128,7 +129,7 @@ class TradeManager:
       # save updated data to json file
       TradeManager.saveAllTradesToFile()
       # sleep for 10 seconds and then continue
-      time.sleep(10)
+      time.sleep(5)
       logging.error('TradeManager: Main thread woke up..')
 
   @staticmethod
