@@ -20,7 +20,7 @@ app.add_url_rule("/positions", view_func=PositionsAPI.as_view("positions_api"))
 
 @app.get('/seriouslykill')
 def seriouslykill():
-        raise RuntimeError('Not running with the Werkzeug Server')
+  sys.exit()
     
 def initLoggingConfg(filepath):
   format = "%(asctime)s: %(message)s"
