@@ -172,7 +172,7 @@ class TradeManager:
     if trade == None:
       return
     logging.error('TradeManager: addNewTrade called for %s', trade)
-    telegram_send.send(messages=-["LONG ADJUSTMENT ALERT !"])                  
+    telegram_send.send(messages=["LONG ADJUSTMENT ALERT !"])                  
     telegram_send.send(messages=[str(trade)])    
     for tr in TradeManager.trades:
       if tr.equals(trade):
@@ -226,7 +226,7 @@ class TradeManager:
         if longTrade == None and shortTrade == None:
           continue    
         if longTrade != None:
-          telegram_send.send(messages=-["LONG ADJUSTMENT ALERT !"])                  
+          telegram_send.send(messages=["LONG ADJUSTMENT ALERT !"])                  
           telegram_send.send(messages=[str(longTrade)])          
           if strategyInstance.shouldPlaceTrade(longTrade, tick):
             # place the longTrade
@@ -241,7 +241,7 @@ class TradeManager:
               continue
         time.sleep(1)
         if shortTrade != None:
-          telegram_send.send(messages=-["SHORT ADJUSTMENT ALERT !"])          
+          telegram_send.send(messages=["SHORT ADJUSTMENT ALERT !"])          
           telegram_send.send(messages=[str(shortTrade)])          
           if strategyInstance.shouldPlaceTrade(shortTrade, tick):
             # place the shortTrade
