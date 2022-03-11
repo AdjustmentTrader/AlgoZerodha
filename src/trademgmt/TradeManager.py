@@ -3,6 +3,7 @@ import logging
 import time
 import json
 from datetime import datetime
+import telegram_send
 
 from config.Config import getServerConfig
 from core.Controller import Controller
@@ -223,6 +224,8 @@ class TradeManager:
         if longTrade == None and shortTrade == None:
           continue    
         if longTrade != None:
+          telegram_send.send(messages=-["LONG ADJUSTMENT ALERT !"])                  
+          telegram_send.send(messages=[str(longTrade)])          
           if strategyInstance.shouldPlaceTrade(longTrade, tick):
             # place the longTrade
             isSuccess = TradeManager.executeTrade(longTrade)
@@ -236,6 +239,8 @@ class TradeManager:
               continue
         time.sleep(1)
         if shortTrade != None:
+          telegram_send.send(messages=-["SHORT ADJUSTMENT ALERT !"])          
+          telegram_send.send(messages=[str(shortTrade)])          
           if strategyInstance.shouldPlaceTrade(shortTrade, tick):
             # place the shortTrade
             isSuccess = TradeManager.executeTrade(shortTrade)
@@ -280,6 +285,8 @@ class TradeManager:
       trade.entryOrder = TradeManager.getOrderManager().placeOrder(oip)
     except Exception as e:
       logging.error('TradeManager: Execute trade failed for tradeID %s: Error => %s', trade.tradeID, str(e))
+      telegram_send.send(messages=["ALERT HIGH HIGH"])
+      telegram_send.send(messages=[str(e)])
       return False
     logging.error('TradeManager: Execute trade successful for %s and entryOrder %s', trade, trade.entryOrder)
     return True
