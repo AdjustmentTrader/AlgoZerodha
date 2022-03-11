@@ -20,7 +20,7 @@ app.add_url_rule("/positions", view_func=PositionsAPI.as_view("positions_api"))
 
 @app.get('/seriouslykill')
 def seriouslykill():
-  sys.exit()
+  quit()
     
 def initLoggingConfg(filepath):
   format = "%(asctime)s: %(message)s"
