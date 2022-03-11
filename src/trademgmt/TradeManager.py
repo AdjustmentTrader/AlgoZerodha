@@ -172,6 +172,8 @@ class TradeManager:
     if trade == None:
       return
     logging.error('TradeManager: addNewTrade called for %s', trade)
+    telegram_send.send(messages=-["LONG ADJUSTMENT ALERT !"])                  
+    telegram_send.send(messages=[str(trade)])    
     for tr in TradeManager.trades:
       if tr.equals(trade):
         logging.error('TradeManager: Trade already exists so not adding again. %s', trade)
