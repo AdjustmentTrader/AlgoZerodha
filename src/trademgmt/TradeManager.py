@@ -96,14 +96,14 @@ class TradeManager:
               lastPriceDict.update(lastprice)
             total = total + (dict.get(symbol) - lastPriceDict.get(symbol))
         if count == 1:
-          logging.error('count----'+str(count))
+          logging.error('count----error----'+str(count))
           continue
         if total > previoustotal:
           previoustotal = total
         if total > 0 and total >= previoustotal:
           stopLoss = -25 + (total + 2)
-        logging.error('total----'+str(total))
-        logging.error('stopLoss----'+str(stopLoss))
+        logging.error('total----error----'+str(total))
+        logging.error('stopLoss----error----'+str(stopLoss))
         if stopLoss > total or total > 25:
           for tr in TradeManager.trades:
             logging.error('TradeManager: MTM Loss reached SL..')
@@ -132,7 +132,7 @@ class TradeManager:
         logging.exception("Exception in TradeManager Main thread SL will not work")
       # save updated data to json file
       TradeManager.saveAllTradesToFile()
-      # sleep for 10 seconds and then continue
+      # sleep for 5 seconds and then continue
       time.sleep(5)
       logging.error('TradeManager: Main thread woke up..')
 
