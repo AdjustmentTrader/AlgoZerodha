@@ -234,6 +234,7 @@ class TradeManager:
                   tr.tradeState = TradeState.DISABLED
               longTrade.startTimestamp = Utils.getEpoch()
               continue
+        time.sleep(2)
         if shortTrade != None:
           if strategyInstance.shouldPlaceTrade(shortTrade, tick):
             # place the shortTrade
