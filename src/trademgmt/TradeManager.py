@@ -81,6 +81,7 @@ class TradeManager:
         # Fetch all order details from broker and update orders in each trade
         r = requests.get("https://www.adjustmenttraderalgo.tk/positions")
         total = 0
+        count = 0
         for item in r.json().get('net'):
           if list(item.items())[3][1] == 'MIS':
             symbol = list(item.items())[0][1]
@@ -88,11 +89,15 @@ class TradeManager:
             avgPrice = list(item.items())[7][1]
             logging.error('avgPrice....'+str(avgPrice))
             if avgPrice != 0:
+              count =  count + 1
               avg = {symbol : avgPrice }
               dict.update(avg)
               lastprice = {symbol : quto.lastTradedPrice }
               lastPriceDict.update(lastprice)
-            total = total + (dict.get(symbol) - lastPriceDict.get(symbol))          
+            total = total + (dict.get(symbol) - lastPriceDict.get(symbol))
+        if count == 1:
+          logging.error('count----'+str(count))
+          continue
         if total > previoustotal:
           previoustotal = total
         if total > 0 and total >= previoustotal:
@@ -101,7 +106,6 @@ class TradeManager:
         logging.error('stopLoss----'+str(stopLoss))
         if stopLoss > total or total > 25:
           for tr in TradeManager.trades:
-            time.sleep(3)
             logging.error('TradeManager: MTM Loss reached SL..')
             if tr.tradeState == TradeState.ACTIVE and tr.direction == Direction.SHORT:
               tr.tradeState = TradeState.DISABLED
