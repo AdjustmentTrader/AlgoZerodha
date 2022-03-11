@@ -18,7 +18,7 @@ app.add_url_rule("/apis/algo/start", view_func=StartAlgoAPI.as_view("start_algo_
 app.add_url_rule("/positions", view_func=PositionsAPI.as_view("positions_api"))
 #app.add_url_rule("/holdings", view_func=HoldingsAPI.as_view("holdings_api"))
 
-@app.post('/seriouslykill')
+@app.get('/seriouslykill')
 def seriouslykill():
         raise RuntimeError('Not running with the Werkzeug Server')
     
