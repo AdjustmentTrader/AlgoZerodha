@@ -8,6 +8,7 @@ from restapis.BrokerLoginAPI import BrokerLoginAPI
 from restapis.StartAlgoAPI import StartAlgoAPI
 from restapis.PositionsAPI import PositionsAPI
 from restapis.HoldingsAPI import HoldingsAPI
+from flask import request
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -18,9 +19,16 @@ app.add_url_rule("/apis/algo/start", view_func=StartAlgoAPI.as_view("start_algo_
 app.add_url_rule("/positions", view_func=PositionsAPI.as_view("positions_api"))
 #app.add_url_rule("/holdings", view_func=HoldingsAPI.as_view("holdings_api"))
 
-@app.get('/seriouslykill')
-def seriouslykill():
-  quit()
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+    
+@app.get('/shutdown')
+def shutdown():
+    shutdown_server()
+    return 'Server shutting down...'
     
 def initLoggingConfg(filepath):
   format = "%(asctime)s: %(message)s"
