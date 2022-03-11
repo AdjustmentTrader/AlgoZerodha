@@ -130,8 +130,8 @@ class ShortStraddleBNF(BaseStrategy):
       if (len(strike) == 1):
         strikeprice = strike.pop()
         if price != None and strikeprice != None:
-          upSide = int(strikeprice) + 60
-          downSide = int(strikeprice) - 60
+          upSide = int(strikeprice) + 61
+          downSide = int(strikeprice) - 61
         #if (int("17210") >= upSide):
         if (int(float(price)) >= upSide) and ShortStraddleBNF.flag == "no":
           ShortStraddleBNF.flag = "yes"
@@ -156,8 +156,8 @@ class ShortStraddleBNF(BaseStrategy):
           ce = two
           pe = one
         if price != None and ce != None and pe != None:
-          upSide = int(ce) + 25
-          downSide = int(pe) - 25
+          upSide = int(ce) + 26
+          downSide = int(pe) - 26
         if (int(float(price)) >= upSide) and ShortStraddleBNF.flag == "yes":
           ShortStraddleBNF.flag = "no"
           buy = Utils.prepareWeeklyOptionsSymbol("NIFTY", int(pe), 'PE') ##buy
