@@ -239,7 +239,6 @@ class TradeManager:
                   tr.tradeState = TradeState.DISABLED
               longTrade.startTimestamp = Utils.getEpoch()
               continue
-        time.sleep(1)
         if shortTrade != None:
           telegram_send.send(messages=["SHORT TRADE ALERT !"])          
           telegram_send.send(messages=[str(shortTrade)])          
