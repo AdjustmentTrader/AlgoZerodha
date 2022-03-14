@@ -107,9 +107,9 @@ class TradeManager:
         logging.error('stopLoss----error----'+str(stopLoss))
         if stopLoss > total or total > 25:
           for tr in TradeManager.trades:
-            logging.error('TradeManager: MTM Loss reached SL..')
-            telegram_send.send(messages=["25 POINTS - STOP LOSS TRIGGER ALERT !"])            
+            logging.error('TradeManager: MTM Loss reached SL..')            
             if tr.tradeState == TradeState.ACTIVE and tr.direction == Direction.SHORT:
+              telegram_send.send(messages=["25 POINTS - STOP LOSS TRIGGER ALERT !"])            
               tr.tradeState = TradeState.DISABLED
               existTrade = copy(tr)
               existTrade.tradeID = Utils.generateTradeID()
@@ -225,9 +225,7 @@ class TradeManager:
         shortTrade = TradeManager.getUntriggeredTrade(tick.tradingSymbol, strategy, Direction.SHORT)
         if longTrade == None and shortTrade == None:
           continue    
-        if longTrade != None:
-          telegram_send.send(messages=["LONG TRADE ALERT !"])                  
-          telegram_send.send(messages=[str(longTrade)])          
+        if longTrade != None:     
           if strategyInstance.shouldPlaceTrade(longTrade, tick):
             # place the longTrade
             isSuccess = TradeManager.executeTrade(longTrade)
@@ -239,9 +237,7 @@ class TradeManager:
                   tr.tradeState = TradeState.DISABLED
               longTrade.startTimestamp = Utils.getEpoch()
               continue
-        if shortTrade != None:
-          telegram_send.send(messages=["SHORT TRADE ALERT !"])          
-          telegram_send.send(messages=[str(shortTrade)])          
+        if shortTrade != None:     
           if strategyInstance.shouldPlaceTrade(shortTrade, tick):
             # place the shortTrade
             isSuccess = TradeManager.executeTrade(shortTrade)
