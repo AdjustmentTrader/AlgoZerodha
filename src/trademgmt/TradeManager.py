@@ -102,7 +102,7 @@ class TradeManager:
         if total > previoustotal:
           previoustotal = total
         if total > 0 and total >= previoustotal:
-          stopLoss = -25 + (total + 2)
+          stopLoss = -25 + (total + 3)
         logging.error('total----error----'+str(total))
         logging.error('stopLoss----error----'+str(stopLoss))
         if stopLoss > total or total > 25:
