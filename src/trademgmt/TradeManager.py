@@ -110,12 +110,12 @@ class TradeManager:
             logging.error('TradeManager: MTM Loss reached SL..')            
             if tr.tradeState == TradeState.ACTIVE and tr.direction == Direction.SHORT:
               telegram_send.send(messages=["25 POINTS - STOP LOSS TRIGGER ALERT !"])            
-              tr.tradeState = TradeState.DISABLED
-              existTrade = copy(tr)
-              existTrade.tradeID = Utils.generateTradeID()
-              existTrade.tradeState = TradeState.CREATED
-              existTrade.direction = Direction.LONG
-              TradeManager.trades.append(existTrade)
+#               tr.tradeState = TradeState.DISABLED
+#               existTrade = copy(tr)
+#               existTrade.tradeID = Utils.generateTradeID()
+#               existTrade.tradeState = TradeState.CREATED
+#               existTrade.direction = Direction.LONG
+#               TradeManager.trades.append(existTrade)
         for tr in TradeManager.trades:
           if tr.intradaySquareOffTimestamp != None:
            nowEpoch = Utils.getEpoch()
